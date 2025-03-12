@@ -1,7 +1,9 @@
+import java.util.Date;
+
 public class Ticket {
     private int row;
     private int seat;
-    private String date;
+    private Date date;
     private String name;
     private String note;
     private String code;
@@ -19,12 +21,12 @@ public class Ticket {
     public static class Builder{
         private int row;
         private int seat;
-        private String date;
+        private Date date;
         private String name;
         private String note;
         private String code;
 
-        public Builder(int row, int seat, String date, String name){
+        public Builder(int row, int seat, Date date, String name){
             this.row = row;
             this.seat = seat;
             this.date = date;
@@ -38,7 +40,7 @@ public class Ticket {
             this.seat = seat;
             return this;
         }
-        public Builder date(String date){
+        public Builder date(Date date){
             this.date = date;
             return this;
         }
@@ -80,7 +82,7 @@ public class Ticket {
         return seat;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
