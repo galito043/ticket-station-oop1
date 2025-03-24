@@ -1,6 +1,8 @@
-Thu Dec 24 00:00:00 EET 3925
-Play 4rooms, at date 2025-12-24 in hall with id 123
-Play asd1, at date 2024-12-23 in hall with id 342
-Play dsada, at date 2023-12-23 in hall with id 4324
-Play dsada, at date 2023-12-23 in hall with id 4324
-Play dsada, at date 2023-12-23 in hall with id 4324
+Hall 1234 2 5
+Ticket play 2025-03-22
+Ticket play 2025-03-22
+Ticket play 2025-03-22
+Ticket play 2025-03-22
+Ticket play 2025-03-22
+
+Event 2025-03-22 1234 play

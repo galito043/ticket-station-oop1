@@ -14,5 +14,6 @@ public class Exit implements Command {
     public Void run(Object[] args) throws Exception {
         System.exit(0);
         return null;
+
     }
 }
