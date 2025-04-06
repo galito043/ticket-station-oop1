@@ -12,7 +12,7 @@ public int getTotalSeatsInHall(String hallId){
     String stringValHallId = hallId;
     String seats;
     for(String s : curFileContents){
-        if(s.startsWith("Hall") && s.contains(stringValHallId)) {
+        if(s.startsWith("Structures.Hall") && s.contains(stringValHallId)) {
             String[] splitLine =  s.split(" ");
             return Integer.parseInt(splitLine[2]) * Integer.parseInt(splitLine[3]);
 
@@ -38,7 +38,7 @@ public int getTotalSeatsInHall(String hallId){
 
             for(String s : Open.fileContents){
 
-                if(s.startsWith("Ticket") && s.contains(eventName) && s.contains(date)){
+                if(s.startsWith("Structures.Ticket") && s.contains(eventName) && s.contains(date)){
                     takenSeats++;
                 }
 

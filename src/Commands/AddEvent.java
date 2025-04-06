@@ -19,20 +19,17 @@ public class AddEvent implements Command<Void, String> {
         String nameOfEvent = args[2];
         String hallId = args[1];
         String date = args[0];
+        System.out.println(date);
         Event event = new Event(LocalDate.parse(date), nameOfEvent, hallId );
 
         if(date != null  && !nameOfEvent.isEmpty() && !hallId.isEmpty()){
-            while(br.ready()){
-                String curLine = br.readLine();
-                if(curLine.startsWith("Event") && curLine.contains(hallId) && curLine.contains(date.toString())){
+            for(String line : Open.fileContents){
+                if(line.equals(event.getHallId()) && line.equals(event.getLocalDate().toString())){
                     throw new EventAlreadyExistsException("There is a play already on this date in this hall");
                 }
             }
-            String newLine = String.format("Event %s %s %s",date,hallId, nameOfEvent);
-            Open.newFileContents.add(newLine);
-            return null;
+            Open.fileContents.add(event.toString());
         }
-
        return null;
     }
 }

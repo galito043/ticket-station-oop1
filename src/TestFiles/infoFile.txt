@@ -1,8 +1,4 @@
 Hall 1234 2 5
-Ticket play 2025-03-22
-Ticket play 2025-03-22
-Ticket play 2025-03-22
-Ticket play 2025-03-22
-Ticket play 2025-03-22
-
-Event 2025-03-22 1234 play
+Event{localDate=2025-04-05, nameOfEvent='play', hallId='1234'}
+Ticket{row=1, seat=1, date='2025-04-05', name='play', note='null', code='112025-04-05play4572'}
+Booking{row=1, seat=1, localDate=2025-04-05, name='play', note='note'}

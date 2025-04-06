@@ -38,4 +38,13 @@ public class Event {
     public void setHallId(String hallId) {
         this.hallId = hallId;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "localDate=" + localDate +
+                ", nameOfEvent='" + nameOfEvent + '\'' +
+                ", hallId='" + hallId + '\'' +
+                '}';
+    }
 }

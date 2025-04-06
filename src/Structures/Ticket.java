@@ -1,9 +1,12 @@
+package Structures;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Ticket {
-    private int row;
-    private int seat;
-    private Date date;
+    private String row;
+    private String seat;
+    private LocalDate date;
     private String name;
     private String note;
     private String code;
@@ -19,28 +22,29 @@ public class Ticket {
 
 
     public static class Builder{
-        private int row;
-        private int seat;
-        private Date date;
+        private String row;
+        private String seat;
+        private LocalDate date;
         private String name;
         private String note;
         private String code;
 
-        public Builder(int row, int seat, Date date, String name){
+        public Builder(String row, String seat, LocalDate date, String name){
             this.row = row;
             this.seat = seat;
             this.date = date;
             this.name = name;
+            this.code = CodeGenerator.generateCode(row, seat, date.toString(), name);
         }
-        public Builder row(int row){
+        public Builder row(String row){
             this.row = row;
             return this;
         }
-        public Builder seat(int seat){
+        public Builder seat(String seat){
             this.seat = seat;
             return this;
         }
-        public Builder date(Date date){
+        public Builder date(LocalDate date){
             this.date = date;
             return this;
         }
@@ -52,10 +56,10 @@ public class Ticket {
             this.note = note;
             return this;
         }
-        public Builder code(){
-            this.code = CodeGenerator.generateCode(new Ticket(this));
-            return this;
-        }
+//        public Builder code(){
+//            this.code = CodeGenerator.generateCode();
+//            return this;
+//        }
         public Ticket build(){
             return new Ticket(this);
         }
@@ -74,15 +78,15 @@ public class Ticket {
                 '}';
     }
 
-    public int getRow() {
+    public String getRow() {
         return row;
     }
 
-    public int getSeat() {
+    public String getSeat() {
         return seat;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

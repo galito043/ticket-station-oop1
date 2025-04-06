@@ -19,6 +19,10 @@ public class CommandLineInterface {
         aliasCommand.put("save", new Save());
         aliasCommand.put("addevent", new AddEvent());
         aliasCommand.put("freeseats", new FreeSeats());
+        aliasCommand.put("book", new Book());
+        aliasCommand.put("unbook", new Unbook());
+        aliasCommand.put("buy" , new Buy());
+        aliasCommand.put("bookings", new Bookings());
         while(true){
             String command =  inputScanner.nextLine();
 

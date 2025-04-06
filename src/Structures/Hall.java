@@ -1,5 +1,6 @@
+package Structures;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
@@ -9,16 +10,16 @@ public class Hall {
     private int numberOfRows;
     private int numberOfSeatsPerRow;
 
-    public void addEvent(Date date, int hallId, String name) throws IOException {
-        FileReader fr = new FileReader("src/TestFiles/infoFile.txt");
-        BufferedReader br = new BufferedReader(fr);
-        while(br.ready()){
-            String curLine = br.readLine();
-            if(curLine.startsWith("Play") && curLine.contains(Integer.toString(hallId)) && curLine.contains(date.toString())){
-                System.out.println();
-            }
-        }
-    }
+//    public void addEvent(Date date, int hallId, String name) throws IOException {
+//        FileReader fr = new FileReader("src/TestFiles/infoFile.txt");
+//        BufferedReader br = new BufferedReader(fr);
+//        while(br.ready()){
+//            String curLine = br.readLine();
+//            if(curLine.startsWith("Play") && curLine.contains(Integer.toString(hallId)) && curLine.contains(date.toString())){
+//                System.out.println();
+//            }
+//        }
+//    }
 
     public Hall(int id, int numberOfRows, int numberOfSeatsPerRow) {
         this.id = id;
@@ -48,5 +49,14 @@ public class Hall {
 
     public void setNumberOfSeatsPerRow(int numberOfSeatsPerRow) {
         this.numberOfSeatsPerRow = numberOfSeatsPerRow;
+    }
+
+    @Override
+    public String toString() {
+        return "Hall{" +
+                "id=" + id +
+                ", numberOfRows=" + numberOfRows +
+                ", numberOfSeatsPerRow=" + numberOfSeatsPerRow +
+                '}';
     }
 }

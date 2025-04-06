@@ -13,7 +13,7 @@ public static String curFile;
 public static List<String> fileContents = new ArrayList<>();
 public static List<String> newFileContents = new ArrayList<>();
     public List<String> run(String[] args) throws IOException {
-
+        fileContents.clear();
         if(args.length >= 1){
             curFile = args[0];
         }
@@ -26,6 +26,7 @@ public static List<String> newFileContents = new ArrayList<>();
         while (br.ready()) {
             fileContents.add(br.readLine());
         }
+
         System.out.println(lines);
         return lines;
     }
