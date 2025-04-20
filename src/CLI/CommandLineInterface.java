@@ -23,6 +23,7 @@ public class CommandLineInterface {
         aliasCommand.put("unbook", new Unbook());
         aliasCommand.put("buy" , new Buy());
         aliasCommand.put("bookings", new Bookings());
+        aliasCommand.put("check", new Check());
         while(true){
             String command =  inputScanner.nextLine();
 
