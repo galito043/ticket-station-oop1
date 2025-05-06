@@ -6,8 +6,8 @@ import Interfaces.Command;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-
 public class CommandLineInterface {
+    public static boolean shouldContinue = true;
     Scanner inputScanner = new Scanner(System.in);
     Map<String, Command> aliasCommand = new HashMap<>();
 
@@ -24,7 +24,10 @@ public class CommandLineInterface {
         aliasCommand.put("buy" , new Buy());
         aliasCommand.put("bookings", new Bookings());
         aliasCommand.put("check", new Check());
-        while(true){
+        aliasCommand.put("report", new Report());
+        aliasCommand.put("addhall", new AddHall());
+
+        while(shouldContinue){
             String command =  inputScanner.nextLine();
 
 
@@ -38,11 +41,16 @@ public class CommandLineInterface {
                 Command commandToExecute = aliasCommand.get(commandWithOptions.getFirst());
                 commandWithOptions.removeFirst();
                 String[] arguments = commandWithOptions.toArray(new String[0]);
+                if(commandToExecute.getClass().getSimpleName().equals("Exit")){
+                    shouldContinue = false;
+                }
                 commandToExecute.run(arguments);
             }
             else{
                 System.out.println("No such command \n");
             }
+
+
         }
 
 

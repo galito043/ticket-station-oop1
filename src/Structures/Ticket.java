@@ -71,10 +71,10 @@ public class Ticket {
         return "Ticket{" +
                 "row=" + row +
                 ", seat=" + seat +
-                ", date='" + date + '\'' +
-                ", name='" + name + '\'' +
-                ", note='" + note + '\'' +
-                ", code='" + code + '\'' +
+                ", date='" + date.toString()  +
+                ", name=" + name  +
+                ", note=" + note  +
+                ", code=" + code  +
                 '}';
     }
 

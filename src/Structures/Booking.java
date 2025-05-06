@@ -23,7 +23,7 @@ public class Booking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Booking booking = (Booking) o;
-        return row == booking.row && seat == booking.seat && Objects.equals(localDate, booking.localDate) && Objects.equals(name, booking.name) && Objects.equals(note, booking.note);
+        return Objects.equals(row, booking.row) && Objects.equals(seat, booking.seat) && Objects.equals(localDate, booking.localDate) && Objects.equals(name, booking.name) && Objects.equals(note, booking.note);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Booking {
         return "Booking{" +
                 "row=" + row +
                 ", seat=" + seat +
-                ", localDate=" + localDate +
+                ", date=" + localDate +
                 ", name='" + name + '\'' +
                 ", note='" + note + '\'' +
                 '}';

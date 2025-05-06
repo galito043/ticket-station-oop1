@@ -1,4 +1,12 @@
-Hall 1234 2 5
-Event{localDate=2025-04-05, nameOfEvent='play', hallId='1234'}
-Ticket{row=1, seat=1, date='2025-04-05', name='play', note='null', code='112025-04-05play4572'}
-Booking{row=1, seat=1, localDate=2025-04-05, name='play', note='note'}
+Event{date=2025-04-05, nameOfEvent=kafka, hallId=1234}
+Ticket{row=1, seat=1, date=2025-04-05, name=kafka, note=null, code=112025-04-05play4572}
+Booking{row=1, seat=1, date=2025-04-05, name=play, note=note}
+Ticket{row=1, seat=2, date=2025-04-05, name=kafka, note=null, code=112025-04-23gali2602}
+Event{date=2025-04-10, nameOfEvent=play, hallId=1234}
+Ticket{row=1, seat=1, date=2025-04-10, name=play, note=null, code=112025-04-23gali2602}
+Ticket{row=1, seat=2, date=2025-04-10, name=play, note=null, code=112025-04-23gali2602}
+Event{date=2025-04-10, nameOfEvent=Shakespeare, hallId=1566}
+Ticket{row=1, seat=1, date=2025-04-10, name=Shakespeare, note=null, code=112025-04-23gali2602}
+Ticket{row=1, seat=2, date=2025-04-10, name=Shakespeare, note=null, code=112025-04-23gali2602}
+Event{date=2024-04-05, nameOfEvent=kafka, hallId=1234}
+Event{date=2026-10-10, nameOfEvent=kafka, hallId=1234}

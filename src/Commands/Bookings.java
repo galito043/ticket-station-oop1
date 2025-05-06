@@ -19,21 +19,34 @@ public class Bookings implements Command<Void,String> {
 
             Open.fileContents.stream().filter ( booking -> booking.contains("Booking") && booking.contains(date) && booking.contains(name) )
                     .forEach(booking -> bookings.add(booking));
-            System.out.println("Booking for play " + name + " on date " + date);
+            System.out.println("Bookings for play " + name + " on date " + date);
 
             bookings.forEach(booking -> System.out.println(booking.toString()));
 
 
         }
-        if(args.length == 1){
+        else if(args.length == 1){
             String date = args[0];
-            Open.fileContents.stream().filter ( booking -> booking.contains("Booking") && booking.contains(date) )
-                    .forEach(booking -> bookings.add(booking));
-            System.out.println("Booking on date " + date);
-
-            bookings.forEach(booking -> System.out.println(booking.toString()));
+//            Open.fileContents.stream().filter ( booking -> booking.contains("Booking") && booking.contains(date) )
+//                    .forEach(booking -> bookings.add(booking));
+//            System.out.println("Booking on date " + date);
+//
+//            bookings.forEach(booking -> System.out.println(booking.toString()));
+            for(String s : Open.fileContents){
+                if(s.startsWith("Event") && s.contains(date)){
+                    String[] properties = s.split(" ");
+                    String eventName = properties[3];
+//                    String eventName = s.substring(s.indexOf("nameOfEvent=") + 12 , s.indexOf("hallId=") -2);
+                    System.out.println("Bookings for event: " + eventName);
+                    for(String booking : Open.fileContents){
+                        if(booking.contains(eventName) && booking.contains(date)){
+                            System.out.println(booking);
+                        }
+                    }
+                }
+            }
         }
-        else {
+        else if (args.length == 0){
 
             Open.fileContents.stream().filter ( booking -> booking.contains("Booking") )
                     .forEach(booking -> bookings.add(booking));

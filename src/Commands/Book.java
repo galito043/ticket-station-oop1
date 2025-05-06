@@ -1,5 +1,6 @@
 package Commands;
 
+import Exceptions.EmptyBookingParametersException;
 import Interfaces.Command;
 import Structures.Booking;
 
@@ -23,9 +24,8 @@ public class Book implements Command<Void, String> {
             System.out.println("Successfully added Booking " + newBooking.toString());
         }
         else{
-            return null;
+            throw new EmptyBookingParametersException("One or more booking parameter is empty");
         }
-
         return null;
     }
 }

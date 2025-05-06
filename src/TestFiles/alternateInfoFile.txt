@@ -1,0 +1,14 @@
+Event 2025-04-05 kafka 1234
+Ticket 1 1 2025-04-05 kafka null 112025-04-05play4572
+Booking 1 1 2025-04-05 play note
+Ticket 1 2 2025-04-05 kafka null 112025-04-23gali2602
+Event 2025-04-10 play 1234
+Ticket 1 1 2025-04-10 play null 112025-04-23gali2602
+Ticket 1 2 2025-04-10 play null 112025-04-23gali2602
+Event 2025-04-10 Shakespeare 1566
+Ticket 1 1 2025-04-10 Shakespeare null 112025-04-23gali2602
+Ticket 1 2 2025-04-10 Shakespeare null 112025-04-23gali2602
+Event 2024-04-05 kafka 1234
+Event 2026-10-10 kafka 1234
+Ticket 1 2 2026-10-10 kafka null 112025-04-23gali2602
+

@@ -8,11 +8,11 @@ public class FreeSeats implements Command<Void, String> {
 
 
 public int getTotalSeatsInHall(String hallId){
-    String[] curFileContents = Open.fileContents.toArray(new String[0]);
+    String[] curFileContents = Open.halls.toArray(new String[0]);
     String stringValHallId = hallId;
     String seats;
     for(String s : curFileContents){
-        if(s.startsWith("Structures.Hall") && s.contains(stringValHallId)) {
+        if(s.startsWith("Hall") && s.contains(stringValHallId)) {
             String[] splitLine =  s.split(" ");
             return Integer.parseInt(splitLine[2]) * Integer.parseInt(splitLine[3]);
 
@@ -25,20 +25,20 @@ public int getTotalSeatsInHall(String hallId){
     public Void run(String[] args) throws Exception {
         String date;
         String eventName;
-        if(args.length >= 1){
+        if(args.length > 1){
             date = args[0];
            eventName = args[1];
         }
         else{
-            date = "2025-03-22";
-            eventName ="play";
+            date = "2025-04-05";
+            eventName ="kafka";
         }
         int totalSeatsInHall = 0;
         int takenSeats = 0;
 
             for(String s : Open.fileContents){
 
-                if(s.startsWith("Structures.Ticket") && s.contains(eventName) && s.contains(date)){
+                if(s.startsWith("Ticket") && s.contains(eventName) && s.contains(date)){
                     takenSeats++;
                 }
 
@@ -48,11 +48,11 @@ public int getTotalSeatsInHall(String hallId){
             for(String s: Open.fileContents){
                 if(s.startsWith("Event") && s.contains(eventName) && s.contains(date)){
                     String[] splitLine = s.split(" ");
-                    totalSeatsInHall = getTotalSeatsInHall(splitLine[2]);
+                    totalSeatsInHall = getTotalSeatsInHall(splitLine[3]);
                 }
             }
 
-        System.out.println(totalSeatsInHall - takenSeats);
+        System.out.println("Free seats at event " + eventName +" "+ (totalSeatsInHall - takenSeats));
             return null;
     }
 }
