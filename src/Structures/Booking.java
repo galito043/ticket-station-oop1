@@ -4,17 +4,12 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Booking {
-    private String row;
-    private String seat;
-    private LocalDate localDate;
-    private String name;
+
     private String note;
+    private Ticket ticket;
 
     public Booking(String row, String seat, LocalDate localDate, String name, String note) {
-        this.row = row;
-        this.seat = seat;
-        this.localDate = localDate;
-        this.name = name;
+        this.ticket = new Ticket(row, seat, localDate, name);
         this.note = note;
     }
 
@@ -23,39 +18,21 @@ public class Booking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Booking booking = (Booking) o;
-        return Objects.equals(row, booking.row) && Objects.equals(seat, booking.seat) && Objects.equals(localDate, booking.localDate) && Objects.equals(name, booking.name) && Objects.equals(note, booking.note);
+        return Objects.equals(note, booking.note) && Objects.equals(ticket, booking.ticket);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(row, seat, localDate, name, note);
+        return Objects.hash(note, ticket);
     }
 
     @Override
     public String toString() {
-        return "Booking{" +
-                "row=" + row +
-                ", seat=" + seat +
-                ", date=" + localDate +
-                ", name='" + name + '\'' +
-                ", note='" + note + '\'' +
-                '}';
+        return "Booking "  + ticket.toString() + " " + note;
     }
 
-    public String getRow() {
-        return row;
-    }
-
-    public String getSeat() {
-        return seat;
-    }
-
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
-    public String getName() {
-        return name;
+    public Ticket getTicket() {
+        return ticket;
     }
 
     public String getNote() {

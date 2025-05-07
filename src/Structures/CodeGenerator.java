@@ -15,7 +15,7 @@ public class CodeGenerator {
     }
     public static String generateCode(String row, String seat, String date, String name) {
         StringBuilder curKey = new StringBuilder();
-        curKey.append(row).append(seat).append(date).append(name).append(randomSuffixGenerator(4));
+        curKey.append(row).append("-").append(seat).append(date).append(randomSuffixGenerator(2));
         return curKey.toString();
     }
 

@@ -12,7 +12,9 @@ public class Exit implements Command {
 
     @Override
     public Void run(Object[] args) throws Exception {
+        System.out.println("Exiting");
         System.exit(0);
+
         return null;
     }
 }

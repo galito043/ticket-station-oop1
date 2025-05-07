@@ -10,17 +10,6 @@ public class Hall {
     private int numberOfRows;
     private int numberOfSeatsPerRow;
 
-//    public void addEvent(Date date, int hallId, String name) throws IOException {
-//        FileReader fr = new FileReader("src/TestFiles/infoFile.txt");
-//        BufferedReader br = new BufferedReader(fr);
-//        while(br.ready()){
-//            String curLine = br.readLine();
-//            if(curLine.startsWith("Play") && curLine.contains(Integer.toString(hallId)) && curLine.contains(date.toString())){
-//                System.out.println();
-//            }
-//        }
-//    }
-
     public Hall(int id, int numberOfRows, int numberOfSeatsPerRow) {
         this.id = id;
         this.numberOfRows = numberOfRows;
