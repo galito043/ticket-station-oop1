@@ -1,6 +1,7 @@
 package Commands;
 
 import Exceptions.EmptyBookingParametersException;
+import Exceptions.EventDoesNotExistException;
 import Interfaces.Command;
 import Structures.Booking;
 
@@ -16,6 +17,9 @@ public class Book implements Command<Void, String> {
             String seat = args[1];
             String date = args[2];
             String name = args[3];
+            if(!Open.events.stream().anyMatch( event -> event.getNameOfEvent().equals(name) && event.getLocalDate().toString().equals(date))){
+                throw new EventDoesNotExistException("Event does not exist on this date");
+            }
             String note = args[4];
             Booking newBooking = new Booking(row,  seat, LocalDate.parse(date), name, note);
             Open.fileContents.add(newBooking.toString());
