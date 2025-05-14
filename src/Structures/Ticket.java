@@ -19,7 +19,7 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return row + " " + seat + " " + date.toString() + " " + name;
+        return row + "," + seat + "," + date.toString() + "," + name;
     }
 
 

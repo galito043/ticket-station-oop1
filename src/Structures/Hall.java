@@ -42,10 +42,10 @@ public class Hall {
 
     @Override
     public String toString() {
-        return "Hall{" +
-                "id=" + id +
-                ", numberOfRows=" + numberOfRows +
-                ", numberOfSeatsPerRow=" + numberOfSeatsPerRow +
-                '}';
+        return "Hall," + id + "," + numberOfRows +"," + numberOfSeatsPerRow;
+                // Hall 1234 2 5
+
+
+
     }
 }

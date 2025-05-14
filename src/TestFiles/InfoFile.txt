@@ -1,0 +1,24 @@
+Event,2025-05-15,Macbeth,1234
+Event,2025-05-14,Hamlet,1234
+Event,2025-05-17,Hamlet,1234
+Booking,1,1,2025-05-14,Hamlet,note
+Purchase,1-12025-05-1426,1,1,2025-05-14,Hamlet
+
+
+aliasCommand.put("open", new Open(sessionInformation));
+        aliasCommand.put("exit", new Exit(sessionInformation));
+        aliasCommand.put("close", new Close(sessionInformation));
+        aliasCommand.put("help", new Help());
+        aliasCommand.put("save", new Save(sessionInformation));
+        aliasCommand.put("saveas", new SaveAs(sessionInformation));
+        aliasCommand.put("addevent", new AddEvent(sessionInformation));
+        aliasCommand.put("freeseats", new FreeSeats(sessionInformation));
+        aliasCommand.put("book", new Book(sessionInformation));
+        aliasCommand.put("unbook", new Unbook(sessionInformation));
+        aliasCommand.put("buy" , new Buy(sessionInformation));
+        aliasCommand.put("bookings", new Bookings(sessionInformation));
+        aliasCommand.put("check", new Check(sessionInformation));
+        aliasCommand.put("report", new Report(sessionInformation));
+        aliasCommand.put("listallevents", new ListAllEvents(sessionInformation));
+        aliasCommand.put("moststatistics", new MostWatchedStatistics(sessionInformation));
+        aliasCommand.put("leastwatched"

@@ -4,10 +4,9 @@ import Exceptions.EmptyFreeSeatsCommandException;
 import Exceptions.EventNotFoundException;
 import Exceptions.HallNotFoundException;
 import Interfaces.Command;
-import Structures.Event;
-import Structures.Hall;
-import Structures.Ticket;
+import Structures.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,23 +14,25 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 public class FreeSeats implements Command<Void, String> {
+private SessionInformation sessionInformation;
 
+    public FreeSeats(SessionInformation sessionInformation) {
+        this.sessionInformation = sessionInformation;
+    }
 
     public int getTotalSeatsInHall(String hallId) {
-        String[] curFileContents = Open.halls.toArray(new String[0]);
         String stringValHallId = hallId;
         Optional<Integer> seats;
-        seats = Open.halls.stream().filter(hall -> hall.getId() == Integer.parseInt(hallId))
-                .findFirst()
-                .map(hall -> hall.getNumberOfSeatsPerRow() * hall.getNumberOfRows());
 
-//    for(String s : curFileContents){
-//        if(s.startsWith("Hall") && s.contains(stringValHallId)) {
-//            String[] splitLine =  s.split(" ");
-//            return Integer.parseInt(splitLine[2]) * Integer.parseInt(splitLine[3]);
-//
-//        }
-//    }
+//        seats = Open.halls.stream().filter(hall -> hall.getId() == Integer.parseInt(hallId))
+//                .findFirst()
+//                .map(hall -> hall.getNumberOfSeatsPerRow() * hall.getNumberOfRows());
+        for(Hall hall : sessionInformation.getHalls()){
+            if(hall.getId() == Integer.parseInt(hallId)){
+                return hall.getNumberOfSeatsPerRow() * hall.getNumberOfRows();
+            }
+        }
+
 
         return 0;
     }
@@ -40,30 +41,62 @@ public class FreeSeats implements Command<Void, String> {
     public Void run(String[] args) throws Exception {
         String date;
         String eventName;
+//        System.out.println(args.length);
         if (args.length == 2) {
             date = args[0];
             eventName = args[1];
         }
-//        } else {
-//            date = "2025-04-05";
-//            eventName = "kafka";
-//        }
             else{
-                throw new EmptyFreeSeatsCommandException("Usage: freeseats <date> <name>\n");
+                throw new EmptyFreeSeatsCommandException("Usage: freeseats <date>,<name>\n");
             }
         int totalSeatsInHall = 0;
         int takenSeats = 0;
-        Event curEvent = Open.events.stream()
-                .filter(event -> event.getNameOfEvent().equals(eventName) && event.getLocalDate().toString().equals(date)).findFirst().orElseThrow(() -> new EventNotFoundException("Event is not found"));
+        LocalDate localDate = LocalDate.parse(date);
+
+//        Event curEvent = Open.events.stream()
+//                .filter(event -> event.getNameOfEvent().equals(eventName) && event.getLocalDate().toString().equals(date)).findFirst().orElseThrow(() -> new EventNotFoundException("Event is not found"));
+        Event curEvent = null;
+        boolean eventFound = false;
+//        System.out.println(date + " " + eventName);
+        for(Event e : sessionInformation.getEvents()){
+            System.out.println(e.getLocalDate().toString()  + " " + e.getNameOfEvent());
+            if(e.getLocalDate().equals(localDate) && e.getNameOfEvent().equals(eventName)){
+                curEvent = e;
+                eventFound = true;
+                break;
+            }
+        }
+        if(!eventFound){
+            throw new EventNotFoundException("Event is not found");
+        }
+
         List<Ticket> ticketList = new ArrayList<>();
-        ticketList.addAll(Open.bookings.stream()
-                .filter(booking -> booking.getTicket().getName().equals(eventName) && booking.getTicket().getDate().toString().equals(date)).map(booking -> booking.getTicket()).toList());
-        ticketList.addAll(Open.purchases.stream()
-                .filter(purchase -> purchase.getTicket().getName().equals(eventName) && purchase.getTicket().getDate().toString().equals(date)).map(purchase -> purchase.getTicket()).toList());
-        System.out.println(ticketList);
+//        ticketList.addAll(Open.bookings.stream()
+//                .filter(booking -> booking.getTicket().getName().equals(eventName) && booking.getTicket().getDate().toString().equals(date)).map(booking -> booking.getTicket()).toList());
+        for(Booking b : sessionInformation.getBookings()){
+            if(b.getTicket().getName().equals(eventName) && b.getTicket().getDate().toString().equals(date)){
+                ticketList.add(b.getTicket());
+            }
+        }
+        for(Purchase p: sessionInformation.getPurchases()){
+            if(p.getTicket().getName().equals(eventName) && p.getTicket().getDate().toString().equals(date)){
+                ticketList.add(p.getTicket());
+            }
+        }
+
+//        ticketList.addAll(Open.purchases.stream()
+//                .filter(purchase -> purchase.getTicket().getName().equals(eventName) && purchase.getTicket().getDate().toString().equals(date)).map(purchase -> purchase.getTicket()).toList());
+//        System.out.println(ticketList);
 
         String curEventHallIdId = curEvent.getHallId();
-        Hall curHall = Open.halls.stream().filter(hall -> hall.getId() == Integer.parseInt(curEventHallIdId)).findFirst().orElseThrow(() -> new HallNotFoundException("Hall not found"));
+//        Hall curHall = Open.halls.stream().filter(hall -> hall.getId() == Integer.parseInt(curEventHallIdId)).findFirst().orElseThrow(() -> new HallNotFoundException("Hall not found"));
+        Hall curHall = null;
+        for(Hall h : sessionInformation.getHalls()){
+            if(Integer.parseInt(curEventHallIdId) == h.getId()){
+                curHall = h;
+                break;
+            }
+        }
 
         System.out.print("Ред\\Място: ");
         for(int x = 1; x <= curHall.getNumberOfSeatsPerRow(); x++){

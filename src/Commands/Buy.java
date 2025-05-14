@@ -3,12 +3,20 @@ package Commands;
 import Exceptions.EmptyPurchaseParametersException;
 import Exceptions.TicketAlreadyBoughtException;
 import Interfaces.Command;
+import Structures.Booking;
 import Structures.Purchase;
+import Structures.SessionInformation;
 import Structures.Ticket;
 
 import java.time.LocalDate;
 
 public class Buy implements Command<Void,String> {
+    private SessionInformation sessionInformation;
+
+    public Buy(SessionInformation sessionInformation) {
+        this.sessionInformation = sessionInformation;
+    }
+
     @Override
     public Void run(String[] args) throws Exception {
 
@@ -19,9 +27,13 @@ public class Buy implements Command<Void,String> {
         String seat = args[1];
         String date = args[2];
         String name = args[3];
+        System.out.println(row);
+        System.out.println(seat);
+        System.out.println(date);
+        System.out.println(name);
         Purchase newPurchase = new Purchase(row, seat, LocalDate.parse(date), name);
-        if(!Open.purchases.contains(newPurchase)){
-            Open.purchases.add(newPurchase);
+        if(!sessionInformation.getPurchases().contains(newPurchase)){
+            sessionInformation.addPurchase(newPurchase);
             System.out.println("Ticket bought");
         }
         else{

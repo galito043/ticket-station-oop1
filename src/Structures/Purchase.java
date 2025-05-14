@@ -17,7 +17,7 @@ public class Purchase {
     }
     @Override
     public String toString() {
-        return "Purchase " + ticketCode + " " + ticket.toString();
+        return "Purchase," + ticketCode + "," + ticket.toString();
     }
 
     @Override
@@ -25,12 +25,12 @@ public class Purchase {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Purchase purchase = (Purchase) o;
-        return Objects.equals(ticket, purchase.ticket) && Objects.equals(ticketCode, purchase.ticketCode);
+        return Objects.equals(ticket, purchase.ticket);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticket, ticketCode);
+        return Objects.hash(ticket);
     }
 
     public Ticket getTicket() {

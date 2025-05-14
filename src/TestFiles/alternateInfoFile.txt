@@ -1,9 +1,0 @@
-Booking 1 1 2025-04-05 kafka note
-Purchase 1-22025-04-0530 1 2 2025-04-05 kafka
-Purchase 1-32025-04-0530 1 3 2025-04-05 kafka
-Event 2025-04-05 kafka 1234
-Event 2025-04-10 play 1234
-Event 2025-04-10 Shakespeare 1566
-Event 2024-04-05 kafka 1234
-Event 2026-10-10 kafka 1234
-Event 2025-05-08 Macbeth 1234

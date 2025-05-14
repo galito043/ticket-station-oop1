@@ -28,7 +28,7 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking "  + ticket.toString() + " " + note;
+        return "Booking," + ticket.toString() + "," + note;
     }
 
     public Ticket getTicket() {

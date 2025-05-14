@@ -1,58 +1,61 @@
 package CLI;
 
 import Commands.*;
+import Enums.CommandType;
 import Exceptions.*;
 import Interfaces.Command;
+import Structures.SessionInformation;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 public class CommandLineInterface {
     public static boolean shouldContinue = true;
+    private SessionInformation sessionInformation = new SessionInformation();
     Scanner inputScanner = new Scanner(System.in);
-    Map<String, Command> aliasCommand = new HashMap<>();
+    Map<CommandType, Command> aliasCommand = new HashMap<>();
 
     public void menu() throws Exception {
-        aliasCommand.put("open", new Open());
-        aliasCommand.put("exit", new Exit());
-        aliasCommand.put("close", new Close());
-        aliasCommand.put("help", new Help());
-        aliasCommand.put("save", new Save());
-        aliasCommand.put("saveas", new SaveAs());
-        aliasCommand.put("addevent", new AddEvent());
-        aliasCommand.put("freeseats", new FreeSeats());
-        aliasCommand.put("book", new Book());
-        aliasCommand.put("unbook", new Unbook());
-        aliasCommand.put("buy" , new Buy());
-        aliasCommand.put("bookings", new Bookings());
-        aliasCommand.put("check", new Check());
-        aliasCommand.put("report", new Report());
-        aliasCommand.put("addhall", new AddHall());
-
+        aliasCommand.put(CommandType.OPEN, new Open(sessionInformation));
+        aliasCommand.put(CommandType.EXIT, new Exit(sessionInformation));
+        aliasCommand.put(CommandType.CLOSE, new Close(sessionInformation));
+        aliasCommand.put(CommandType.HELP, new Help());
+        aliasCommand.put(CommandType.SAVE, new Save(sessionInformation));
+        aliasCommand.put(CommandType.SAVE_AS, new SaveAs(sessionInformation));
+        aliasCommand.put(CommandType.ADD_EVENT, new AddEvent(sessionInformation));
+        aliasCommand.put(CommandType.FREE_SEATS, new FreeSeats(sessionInformation));
+        aliasCommand.put(CommandType.BOOK, new Book(sessionInformation));
+        aliasCommand.put(CommandType.UNBOOK, new Unbook(sessionInformation));
+        aliasCommand.put(CommandType.BUY , new Buy(sessionInformation));
+        aliasCommand.put(CommandType.BOOKINGS, new Bookings(sessionInformation));
+        aliasCommand.put(CommandType.CHECK, new Check(sessionInformation));
+        aliasCommand.put(CommandType.REPORT, new Report(sessionInformation));
+        aliasCommand.put(CommandType.LIST_ALL_EVENTS, new ListAllEvents(sessionInformation));
+        aliasCommand.put(CommandType.MOST_WATCHED, new MostWatchedStatistics(sessionInformation));
+        aliasCommand.put(CommandType.LEAST_WATCHED, new LeastWatchedStatistics(sessionInformation));
         while(shouldContinue){
             try{
                 System.out.print("> ");
                 String command =  inputScanner.nextLine();
-                List<String> commandWithOptions = new ArrayList<String>();
-                String[] commands = command.split(" ");
-                commandWithOptions.addAll(Arrays.asList(commands));
-
-
-
-                if(aliasCommand.containsKey(commandWithOptions.getFirst()) ){
+                String[] commandWithOptions = command.trim().split("\\s+",2);
+                CommandType currentCommand = CommandType.fromString(commandWithOptions[0]);
+                if(aliasCommand.containsKey(currentCommand) ){
                     if(Open.curFile == null){
-                        if(!Objects.equals(commandWithOptions.getFirst(), "open") && !Objects.equals(commandWithOptions.getFirst(), "help") && !commandWithOptions.getFirst().equals("exit")){
+                        if(!currentCommand.equals(CommandType.EXIT) && !currentCommand.equals(CommandType.HELP) && !currentCommand.equals(CommandType.OPEN)){
                             throw new NoFileOpenException("No file is opened. Open a file first");
                         }
                     }
-                    Command commandToExecute = aliasCommand.get(commandWithOptions.getFirst());
-                    commandWithOptions.removeFirst();
-                    String[] arguments = commandWithOptions.toArray(new String[0]);
-                    if(commandToExecute.getClass().getSimpleName().equals("exit")){
+                    if(currentCommand.equals(CommandType.EXIT)){
                         shouldContinue = false;
                     }
-                    commandToExecute.run(arguments);
-                }
+                    String[] argumentsArray = new String[0];
+                    Command commandToExecute = aliasCommand.get(currentCommand);
+                    if(commandWithOptions.length > 1){
+                        String arguments = commandWithOptions[1];
+                        argumentsArray = arguments.split(",");
+                    }
+                    commandToExecute.run(argumentsArray);
+                    }
                 else{
                     System.out.println("No such command \n");
                 }
@@ -61,19 +64,11 @@ public class CommandLineInterface {
                     EmptyPurchaseParametersException | EmptyReportParametersException | EmptyUnbookParametersException
                     | EventAlreadyExistsException | EventNotFoundException | HallNotFoundException | InvalidDateException
                     | InvalidTicketCodeException | NoEventsException | NoFileOpenException | TicketAlreadyBoughtException
-                   | ArrayIndexOutOfBoundsException  | MissingCheckParameterException e){
+                   | ArrayIndexOutOfBoundsException  | MissingCheckParameterException | TooManyParametersException |
+            EventDoesNotExistException | UnknownCommandException e){
                 System.out.println(e.getMessage());
             }
-
-
-
         }
-
-
-
-
-
-
     }
 
 }
