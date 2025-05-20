@@ -32,12 +32,17 @@ private final String command;
         return command;
     }
     public static CommandType fromString(String keyword){
-        for(CommandType type : CommandType.values()){
-            if(type.command.equalsIgnoreCase(keyword)){
-                return type;
+        try{
+            for(CommandType type : CommandType.values()){
+                if(type.command.equalsIgnoreCase(keyword)){
+                    return type;
+                }
             }
+            throw new UnknownCommandException("Unkown command");
+        }catch (UnknownCommandException e){
+            System.out.println(e.getMessage());
         }
-        throw new UnknownCommandException("Unkown command");
+        return null;
     }
 
 }

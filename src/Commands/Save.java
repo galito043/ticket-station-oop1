@@ -34,7 +34,7 @@ public class Save implements Command <Void, String> {
         for(Purchase p : sessionInformation.getPurchases()){
             fw.write(p.toString() + "\n");
         }
-
+        System.out.println("Saving...");
         fw.close();
         return null;
     }

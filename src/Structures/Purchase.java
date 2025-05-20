@@ -15,6 +15,10 @@ public class Purchase {
         this.ticket = new Ticket(row,seat,date, name);
         this.ticketCode = ticketCode;
     }
+    public Purchase(Ticket ticket) {
+        this.ticket =  ticket;
+
+    }
     @Override
     public String toString() {
         return "Purchase," + ticketCode + "," + ticket.toString();

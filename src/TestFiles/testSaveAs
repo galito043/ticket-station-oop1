@@ -1,0 +1,9 @@
+Event,2025-05-15,Macbeth,1234
+Event,2025-05-14,Hamlet,1234
+Event,2025-05-17,Hamlet,1234
+Event,2025-05-18,Hamlet in lapland,1234
+Event,2025-05-20,Kafka on the beach,1234
+Booking,1,1,2025-05-20,Kafka on the beach,note
+Booking,1,1,2025-05-20,Kafka on the beach,a NOTE
+Purchase,1-12025-05-1426,1,1,2025-05-14,Hamlet
+Purchase,1-12025-05-2002,1,1,2025-05-20,Kafka on the beach

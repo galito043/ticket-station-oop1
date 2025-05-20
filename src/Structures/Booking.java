@@ -12,13 +12,16 @@ public class Booking {
         this.ticket = new Ticket(row, seat, localDate, name);
         this.note = note;
     }
+    public Booking(Ticket ticket) {
+        this.ticket = ticket;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Booking booking = (Booking) o;
-        return Objects.equals(note, booking.note) && Objects.equals(ticket, booking.ticket);
+        return Objects.equals(ticket, booking.ticket);
     }
 
     @Override

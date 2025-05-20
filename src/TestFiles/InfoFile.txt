@@ -1,24 +1,10 @@
 Event,2025-05-15,Macbeth,1234
 Event,2025-05-14,Hamlet,1234
 Event,2025-05-17,Hamlet,1234
-Booking,1,1,2025-05-14,Hamlet,note
+Event,2025-05-18,Hamlet in lapland,1234
+Event,2025-05-20,Kafka on the beach,1234
+Booking,1,1,2025-05-20,Kafka on the beach,note
 Purchase,1-12025-05-1426,1,1,2025-05-14,Hamlet
-
-
-aliasCommand.put("open", new Open(sessionInformation));
-        aliasCommand.put("exit", new Exit(sessionInformation));
-        aliasCommand.put("close", new Close(sessionInformation));
-        aliasCommand.put("help", new Help());
-        aliasCommand.put("save", new Save(sessionInformation));
-        aliasCommand.put("saveas", new SaveAs(sessionInformation));
-        aliasCommand.put("addevent", new AddEvent(sessionInformation));
-        aliasCommand.put("freeseats", new FreeSeats(sessionInformation));
-        aliasCommand.put("book", new Book(sessionInformation));
-        aliasCommand.put("unbook", new Unbook(sessionInformation));
-        aliasCommand.put("buy" , new Buy(sessionInformation));
-        aliasCommand.put("bookings", new Bookings(sessionInformation));
-        aliasCommand.put("check", new Check(sessionInformation));
-        aliasCommand.put("report", new Report(sessionInformation));
-        aliasCommand.put("listallevents", new ListAllEvents(sessionInformation));
-        aliasCommand.put("moststatistics", new MostWatchedStatistics(sessionInformation));
-        aliasCommand.put("leastwatched"
+Purchase,1-12025-05-2002,1,1,2025-05-20,Kafka on the beach
+Purchase,1-32025-05-2076,1,3,2025-05-20,Kafka on the beach
+Purchase,1-42025-05-2056,1,4,2025-05-20,Kafka on the beach

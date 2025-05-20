@@ -18,37 +18,47 @@ private SessionInformation sessionInformation;
 
     @Override
     public Void run(String[] args) throws Exception {
-        List<Booking> bookingsToList = new ArrayList<>();
-        if(args.length  == 2){
-            String date = args[0];
-            String name = args[1];
-            for(Booking b : sessionInformation.getBookings()){
-                if(b.getTicket().getName().equals(name) && b.getTicket().getDate().toString().equals(date)){
-                    bookingsToList.add(b);
+        try {
+            List<Booking> bookingsToList = new ArrayList<>();
+            if(args.length  == 2){
+                String date = args[0];
+                String name = args[1];
+                for(Booking b : sessionInformation.getBookings()){
+                    if(b.getTicket().getName().equals(name) && b.getTicket().getDate().toString().equals(date)){
+                        bookingsToList.add(b);
+                    }
+                }
+                System.out.println("Bookings for play " + name + " on date " + date);
+                for(Booking b : bookingsToList){
+                    System.out.println(b.toString());
+                }
+//                bookingsToList.forEach(booking -> System.out.println(booking.toString()));
+            }
+            else if(args.length == 1){
+                String date = args[0];
+                for(Booking b: sessionInformation.getBookings()){
+                    if(b.getTicket().getDate().toString().equals(date)){
+                        bookingsToList.add(b);
+                    }
+                }
+                System.out.println("Bookings on " + date);
+                for(Booking b: bookingsToList){
+                    System.out.println(b.toString());
+                }
+//                bookingsToList.forEach(booking -> System.out.println(booking.toString()));
+            }
+            else if (args.length == 0){
+                for(Booking b : sessionInformation.getBookings()){
+                    System.out.println(b.toString());
                 }
             }
-//            Open.bookings.stream().filter(booking -> booking.getTicket().getDate().toString().equals(date) && booking.getTicket().getName().equals(name)).forEach(booking -> bookingsToList.add(booking));
-            System.out.println("Bookings for play " + name + " on date " + date);
-            bookingsToList.forEach(booking -> System.out.println(booking.toString()));
-        }
-        else if(args.length == 1){
-            String date = args[0];
-            for(Booking b: sessionInformation.getBookings()){
-                if(b.getTicket().getDate().toString().equals(date)){
-                    bookingsToList.add(b);
-                }
+            else{
+                throw new TooManyParametersException("Too many parameters. Usage bookings [<date>] [<name>]");
             }
-            System.out.println("Bookings on " + date);
-            bookingsToList.forEach(booking -> System.out.println(booking.toString()));
+        } catch (TooManyParametersException e){
+            System.out.println(e.getMessage());
         }
-        else if (args.length == 0){
-            for(Booking b : sessionInformation.getBookings()){
-                System.out.println(b.toString());
-            }
-        }
-        else{
-            throw new TooManyParametersException("Too many parameters. Usage bookings [<date>] [<name>]");
-        }
+
        return null;
 
     }

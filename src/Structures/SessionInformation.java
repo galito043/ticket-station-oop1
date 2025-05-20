@@ -12,6 +12,13 @@ public class SessionInformation {
     public  List<Purchase> purchases = new ArrayList<>();
     public  List<Hall> halls = new ArrayList<>();
 
+    private static SessionInformation sessionInformation;
+    public static SessionInformation getInstance(){
+        if(sessionInformation == null){
+            sessionInformation = new SessionInformation();
+        }
+        return sessionInformation;
+    }
 
 
     public  void putObject( String string, String[] params){

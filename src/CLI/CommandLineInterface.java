@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.List;
 public class CommandLineInterface {
     public static boolean shouldContinue = true;
-    private SessionInformation sessionInformation = new SessionInformation();
+    private SessionInformation sessionInformation = SessionInformation.getInstance();
     Scanner inputScanner = new Scanner(System.in);
     Map<CommandType, Command> aliasCommand = new HashMap<>();
 
@@ -52,20 +52,19 @@ public class CommandLineInterface {
                     Command commandToExecute = aliasCommand.get(currentCommand);
                     if(commandWithOptions.length > 1){
                         String arguments = commandWithOptions[1];
-                        argumentsArray = arguments.split(",");
+                        argumentsArray = arguments.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                        for (int i = 0; i < argumentsArray.length; i++) {
+                            argumentsArray[i] = argumentsArray[i].replaceAll("^\"|\"$", "");
+                        }
                     }
                     commandToExecute.run(argumentsArray);
                     }
-                else{
-                    System.out.println("No such command \n");
-                }
+//                else{
+//                    System.out.println("No such command \n");
+//                }
             }
-            catch (EmptyBookingParametersException | EmptyEventParametersException | EmptyFreeSeatsCommandException |
-                    EmptyPurchaseParametersException | EmptyReportParametersException | EmptyUnbookParametersException
-                    | EventAlreadyExistsException | EventNotFoundException | HallNotFoundException | InvalidDateException
-                    | InvalidTicketCodeException | NoEventsException | NoFileOpenException | TicketAlreadyBoughtException
-                   | ArrayIndexOutOfBoundsException  | MissingCheckParameterException | TooManyParametersException |
-            EventDoesNotExistException | UnknownCommandException e){
+            catch (NoFileOpenException e){
                 System.out.println(e.getMessage());
             }
         }

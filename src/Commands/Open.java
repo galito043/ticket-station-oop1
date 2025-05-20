@@ -20,19 +20,32 @@ public  static String curFile;
 
     public Void run(String[] args) throws IOException {
         sessionInformation.reset();
-            if(args.length >= 1){
-                curFile = args[0];
-            }
-            else{
-                curFile = "src/TestFiles/InfoFile.txt";
-            }
-        generalInfoReader = new FileReader(curFile);
-        hallInfoReader = new FileReader(hallsFile);
-        FileLoader fileLoader = new FileLoader(curFile, hallsFile, sessionInformation, generalInfoReader, hallInfoReader);
+        curFile = args.length >= 1 ? args[0] : "src/TestFiles/InfoFile.txt";
+
+        try{
+            generalInfoReader = new FileReader(curFile);
+        }catch (IOException e){
+            System.out.println("Could not open info file " + curFile);
+            return null;
+        }
+        try{
+            hallInfoReader = new FileReader(hallsFile);
+
+        }catch (IOException e){
+            System.out.println("Could not open halls file " + hallsFile);
+            return null;
+        }
+
+        try{
+            FileLoader fileLoader = new FileLoader(curFile, hallsFile, sessionInformation, generalInfoReader, hallInfoReader);
             fileLoader.loadGeneralInformation();
             fileLoader.loadHallInformation();
 
-        System.out.println("Opening " + curFile);
+            System.out.println("Opening " + curFile);
+        }catch (IOException e){
+            System.out.println("Error loading file contents " + e.getMessage());
+        }
+
             return null;
         }
 
