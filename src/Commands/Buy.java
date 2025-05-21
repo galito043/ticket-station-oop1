@@ -67,7 +67,7 @@ public class Buy implements Command<Void,String> {
             else{
                 throw new TicketAlreadyBoughtException("The ticket is already bought.");
             }
-        }catch ( EmptyPurchaseParametersException |TicketAlreadyBoughtException | EventNotFoundException | RowOrSeatOverLimitException | DateTimeParseException e){
+        }catch ( EmptyPurchaseParametersException |TicketAlreadyBoughtException | EventNotFoundException | RowOrSeatOverLimitException | DateTimeParseException | InvalidRowAndSeatNumbers e){
             System.out.println(e.getMessage());
         }
 
