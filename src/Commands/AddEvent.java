@@ -30,7 +30,7 @@
 
 
         try{
-            if(args == null || args.length < 3){
+            if(args == null || args.length < 3 || args[0].isEmpty() || args[1].isEmpty() || args[2].isEmpty()){
                 throw new EmptyEventParametersException("Usage: <date> <hallId> <eventName>");
             }
             int hallId;

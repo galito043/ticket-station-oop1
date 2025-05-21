@@ -1,11 +1,15 @@
 package Commands;
 
+import Exceptions.EmptyParametersException;
+import Exceptions.InvalidDateException;
 import Interfaces.Command;
 import Structures.Event;
 import Structures.SessionInformation;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,21 @@ SessionInformation sessionInformation;
     @Override
     public Void run(String[] args) throws Exception {
         try{
+            if(args.length < 2){
+                throw new EmptyParametersException("Usage leastwatched <fromdate> <todate>");
+            }
+            LocalDate fromDate = null;
+            LocalDate toDate = null;
+            try{
+                fromDate = LocalDate.parse(args[0]);
+                toDate = LocalDate.parse(args[1]);
+            }catch (DateTimeParseException e){
+                System.out.println("Could not parse date ");
+                return null;
+            }
+            if(toDate.isBefore(fromDate)){
+                throw new InvalidDateException("To date must not be before from date");
+            }
             Report report = new Report(sessionInformation);
             FreeSeats freeSeats = new FreeSeats(sessionInformation);
 
@@ -33,7 +52,7 @@ SessionInformation sessionInformation;
 
             for(Map.Entry<Event,Long> entry : list){
                 int numberOfSeats = freeSeats.getTotalSeatsInHall(entry.getKey().getHallId());
-                if(entry.getValue() < numberOfSeats * 0.10){
+                if(entry.getValue() < numberOfSeats * 0.10 && report.isDateBetweenTwoDates(fromDate, toDate, entry.getKey().getLocalDate())){
                     leastWatched.add(entry);
                 }
             }
@@ -68,7 +87,7 @@ SessionInformation sessionInformation;
             else{
                 return null;
             }
-        }catch (Exception e){
+        }catch (EmptyParametersException | InvalidDateException e){
             System.out.println(e.getMessage());
         }
 

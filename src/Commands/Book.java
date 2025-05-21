@@ -31,22 +31,29 @@ private SessionInformation sessionInformation;
             if(args.length == 5){
                 int row;
                 int seat;
+                LocalDate date = null;
                 try{
                     row = Integer.parseInt(args[0]);
                     seat = Integer.parseInt(args[1]);
 
                 }catch (NumberFormatException e){
                     throw new InvalidRowAndSeatNumbers("Invalid row and seat choice");
+
+                }
+                try{
+                    date = LocalDate.parse(args[2]);
+                }catch (DateTimeParseException e ){
+                    System.out.println("Invalid date");
+                    return null;
                 }
 
 
-                String date = args[2];
                 String eventName = args[3].toUpperCase();
                 String note = args[4];
                 boolean exists = false;
                 Event curEvent = null;
                 for(Event e : sessionInformation.getEvents()){
-                    if(e.getNameOfEvent().equals(eventName) && e.getLocalDate().toString().equals(date)){
+                    if(e.getNameOfEvent().equals(eventName) && e.getLocalDate().equals(date)){
                         curEvent = e;
                         exists = true;
                     }
@@ -58,7 +65,7 @@ private SessionInformation sessionInformation;
                 if(isRowSeatOverLimit(row, seat, curEvent.getHallId())){
                     throw  new RowOrSeatOverLimitException("The row or seat you entered does not exist in this hall");
                 }
-                Booking newBooking = new Booking(row,  seat, LocalDate.parse(date), eventName, note);
+                Booking newBooking = new Booking(row,  seat, date, eventName, note);
                 if(!sessionInformation.getBookings().contains(newBooking) && !sessionInformation.getPurchases().contains(new Purchase(newBooking.getTicket()))){
                     sessionInformation.addBooking(newBooking);
                     System.out.println("Successfully added Booking " + newBooking.toString());
@@ -73,7 +80,7 @@ private SessionInformation sessionInformation;
             }
 
         }
-            catch (EventDoesNotExistException | EmptyBookingParametersException | BookingAlreadyExistsException | RowOrSeatOverLimitException | DateTimeParseException e) {
+            catch (EventDoesNotExistException | EmptyBookingParametersException | BookingAlreadyExistsException | RowOrSeatOverLimitException | DateTimeParseException | InvalidRowAndSeatNumbers e ) {
                 System.out.println(e.getMessage());
             }
 

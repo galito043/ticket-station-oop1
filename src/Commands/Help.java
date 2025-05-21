@@ -21,8 +21,8 @@ public class Help implements Command <Void, String>{
                 "  bookings [<date>] [<name>]\n" +
                 "  check <code>\n" +
                 "  report <from> <to> [<hall>]\n" +
-                "  statisticsTop\n" +
-                "  statisticsLow_occupancy <from> <to>");
+                "  mostwatched \n" +
+                "  leastwatched <from> <to>");
         return null;
     }
 }
