@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Objects;
 
 public class Hall {
     private int id;
@@ -43,9 +44,19 @@ public class Hall {
     @Override
     public String toString() {
         return "Hall," + id + "," + numberOfRows +"," + numberOfSeatsPerRow;
-                // Hall 1234 2 5
 
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hall hall = (Hall) o;
+        return id == hall.id;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, numberOfRows, numberOfSeatsPerRow);
     }
 }

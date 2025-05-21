@@ -1,13 +1,17 @@
 package Commands;
 
+import Exceptions.NoBookingsException;
+import Exceptions.NoTicketsException;
 import Exceptions.TooManyParametersException;
 import Interfaces.Command;
 import Structures.Booking;
 import Structures.SessionInformation;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class Bookings implements Command<Void,String> {
 private SessionInformation sessionInformation;
@@ -19,47 +23,84 @@ private SessionInformation sessionInformation;
     @Override
     public Void run(String[] args) throws Exception {
         try {
-            List<Booking> bookingsToList = new ArrayList<>();
+            List<Booking> bookingsList;
             if(args.length  == 2){
-                String date = args[0];
-                String name = args[1];
-                for(Booking b : sessionInformation.getBookings()){
-                    if(b.getTicket().getName().equals(name) && b.getTicket().getDate().toString().equals(date)){
-                        bookingsToList.add(b);
+                
+                LocalDate date = null;
+                try{
+                    date = LocalDate.parse(args[0]);
+                }catch (DateTimeParseException e){
+                    System.out.println("Invalid date");
+                }
+                
+                String name = args[1].toUpperCase();
+                bookingsList = getBookings(date, name);
+                System.out.println("Bookings for play " + name + " on date " + date);
+                if(!bookingsList.isEmpty()){
+                    for(Booking b : bookingsList){
+                        System.out.println(b.toString());
                     }
                 }
-                System.out.println("Bookings for play " + name + " on date " + date);
-                for(Booking b : bookingsToList){
-                    System.out.println(b.toString());
+                else{
+                    throw new NoBookingsException("No bookings to show with this name and on this date");
                 }
-//                bookingsToList.forEach(booking -> System.out.println(booking.toString()));
             }
             else if(args.length == 1){
-                String date = args[0];
-                for(Booking b: sessionInformation.getBookings()){
-                    if(b.getTicket().getDate().toString().equals(date)){
-                        bookingsToList.add(b);
+                LocalDate date = null;
+                try{
+                    date = LocalDate.parse(args[0]);
+                }catch (DateTimeParseException e){
+                    System.out.println("Invalid date");
+                }
+                bookingsList = getBookings(date);
+                System.out.println("Bookings on " + date);
+                if(!bookingsList.isEmpty()){
+                    for(Booking b: bookingsList){
+                        System.out.println(b.toString());
                     }
                 }
-                System.out.println("Bookings on " + date);
-                for(Booking b: bookingsToList){
-                    System.out.println(b.toString());
+                else{
+                    throw new NoBookingsException("No bookings to on this date");
                 }
-//                bookingsToList.forEach(booking -> System.out.println(booking.toString()));
             }
             else if (args.length == 0){
-                for(Booking b : sessionInformation.getBookings()){
-                    System.out.println(b.toString());
+                if(!sessionInformation.getBookings().isEmpty()){
+                    for(Booking b : sessionInformation.getBookings()){
+                        System.out.println(b.toString());
+                    }
+                }
+                else{
+                    throw new NoBookingsException("No bookings to show");
                 }
             }
             else{
                 throw new TooManyParametersException("Too many parameters. Usage bookings [<date>] [<name>]");
             }
-        } catch (TooManyParametersException e){
+        } catch (TooManyParametersException | NoTicketsException | NoBookingsException | DateTimeParseException e){
             System.out.println(e.getMessage());
         }
 
        return null;
 
     }
+    public List<Booking> getBookings(LocalDate date, String name){
+        List<Booking> bookingsToList = new ArrayList<>();
+        for(Booking b : sessionInformation.getBookings()){
+            if(b.getTicket().getName().equals(name) && b.getTicket().getDate().equals(date)){
+                bookingsToList.add(b);
+            }
+        }
+        return bookingsToList;
+    }
+    public List<Booking> getBookings(LocalDate date){
+        List<Booking> bookingsToList = new ArrayList<>();
+        for(Booking b: sessionInformation.getBookings()){
+            if(b.getTicket().getDate().equals(date)){
+                bookingsToList.add(b);
+            }
+        }
+        return bookingsToList;
+    }
+
+
 }

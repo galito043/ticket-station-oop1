@@ -1,15 +1,11 @@
 package Commands;
 
-import Exceptions.BookingAlreadyExistsException;
-import Exceptions.EmptyBookingParametersException;
-import Exceptions.EventDoesNotExistException;
+import Exceptions.*;
 import Interfaces.Command;
-import Structures.Booking;
-import Structures.Event;
-import Structures.Purchase;
-import Structures.SessionInformation;
+import Structures.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 public class Book implements Command<Void, String> {
@@ -23,14 +19,25 @@ private SessionInformation sessionInformation;
     public Void run(String[] args) throws Exception {
         try{
             if(args.length == 5){
-                String row = args[0];
-                String seat = args[1];
+                int row;
+                int seat;
+                try{
+                    row = Integer.parseInt(args[0]);
+                    seat = Integer.parseInt(args[1]);
+
+                }catch (NumberFormatException e){
+                    throw new InvalidRowAndSeatNumbers("Invalid row and seat choice");
+                }
+
+
                 String date = args[2];
-                String eventName = args[3];
+                String eventName = args[3].toUpperCase();
                 String note = args[4];
                 boolean exists = false;
+                Event curEvent = null;
                 for(Event e : sessionInformation.getEvents()){
                     if(e.getNameOfEvent().equals(eventName) && e.getLocalDate().toString().equals(date)){
+                        curEvent = e;
                         exists = true;
                     }
                 }
@@ -38,7 +45,9 @@ private SessionInformation sessionInformation;
                     throw new EventDoesNotExistException("Event " + eventName + " does not exist on this date " + date);
                 }
 
-
+                if(isRowSeatOverLimit(row, seat, curEvent.getHallId())){
+                    throw  new RowOrSeatOverLimitException("The row or seat you entered does not exist in this hall");
+                }
                 Booking newBooking = new Booking(row,  seat, LocalDate.parse(date), eventName, note);
                 if(!sessionInformation.getBookings().contains(newBooking) && !sessionInformation.getPurchases().contains(new Purchase(newBooking.getTicket()))){
                     sessionInformation.addBooking(newBooking);
@@ -54,12 +63,25 @@ private SessionInformation sessionInformation;
             }
 
         }
-            catch (EventDoesNotExistException | EmptyBookingParametersException | BookingAlreadyExistsException e) {
+            catch (EventDoesNotExistException | EmptyBookingParametersException | BookingAlreadyExistsException | RowOrSeatOverLimitException | DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
 
         return null;
         }
 
+public boolean isRowSeatOverLimit(int row, int seat, int hallId){
+        for(Hall h : sessionInformation.getHalls()){
+            if(h.getId() == hallId){
+                int hRows = h.getNumberOfRows();
+                int hSeats = h.getNumberOfSeatsPerRow();
+                if(row > hRows || row < 1 ||  seat > hSeats || seat < 1){
+                    return true;
+                }
+            }
+
+        }
+        return false;
+}
     }
 

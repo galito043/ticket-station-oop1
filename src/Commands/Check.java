@@ -23,7 +23,7 @@ private SessionInformation sessionInformation;
             }
 
             String code = args[0];
-            if(code.length() < 3){
+            if(code.length() < 15){
                 throw new ShortCodeException("Code is too short");
             }
             String seatNumber = "";
@@ -42,7 +42,7 @@ private SessionInformation sessionInformation;
             else{
                 throw new InvalidTicketCodeException("Invalid ticket code");
             }
-        }catch (InvalidTicketCodeException | MissingCheckParameterException e){
+        }catch (InvalidTicketCodeException | MissingCheckParameterException | ShortCodeException e){
             System.out.println(e.getMessage());
         }
 

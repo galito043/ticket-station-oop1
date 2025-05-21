@@ -5,6 +5,7 @@ import Structures.Event;
 import Structures.SessionInformation;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ SessionInformation sessionInformation;
 
             for(Map.Entry<Event,Long> entry : list){
                 int numberOfSeats = freeSeats.getTotalSeatsInHall(entry.getKey().getHallId());
-                if(entry.getValue() <= numberOfSeats * 0.10){
+                if(entry.getValue() < numberOfSeats * 0.10){
                     leastWatched.add(entry);
                 }
             }
@@ -41,11 +42,24 @@ SessionInformation sessionInformation;
             Scanner scanner = new Scanner(System.in);
             String agreement = scanner.nextLine();
             if(agreement.equalsIgnoreCase("y")){
-                FileWriter fileWriter = new FileWriter("src/TestFiles/leastWatchedStatistics.txt");
-                for(Map.Entry<Event, Long> entry : leastWatched){
-                    fileWriter.write(entry.getKey().toString() + " taken seats " + entry.getValue() + "\n");
+                try{
+                    FileWriter fileWriter;
+                    String line = scanner.nextLine();
+                    if(line.isEmpty()){
+                        fileWriter = new FileWriter("src/TestFiles/leastWatchedStatistics.txt");
+                    }
+                    else{
+                        fileWriter = new FileWriter(line);
+
+                    }
+                    for(Map.Entry<Event, Long> entry : leastWatched){
+                        fileWriter.write(entry.getKey().toString() + " taken seats " + entry.getValue() + "\n");
+                    }
+                    fileWriter.close();
+                }catch (IOException e){
+                    System.out.println("Invalid path or file name");
                 }
-                fileWriter.close();
+
             }
             else{
                 return null;

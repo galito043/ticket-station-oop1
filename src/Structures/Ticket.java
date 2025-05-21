@@ -5,29 +5,29 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Ticket {
-    private String row;
-    private String seat;
+    private int row;
+    private int seat;
     private LocalDate date;
-    private String name;
+    private String nameOfPlay;
 
-    public Ticket(String row, String seat, LocalDate date, String name) {
+    public Ticket(int row, int seat, LocalDate date, String name) {
         this.row = row;
         this.seat = seat;
         this.date = date;
-        this.name = name;
+        this.nameOfPlay = name;
     }
 
     @Override
     public String toString() {
-        return row + "," + seat + "," + date.toString() + "," + name;
+        return row + "," + seat + "," + date.toString() + "," + nameOfPlay;
     }
 
 
-    public String getRow() {
+    public int getRow() {
         return row;
     }
 
-    public String getSeat() {
+    public int getSeat() {
         return seat;
     }
 
@@ -36,7 +36,7 @@ public class Ticket {
     }
 
     public String getName() {
-        return name;
+        return nameOfPlay;
     }
 
     @Override
@@ -44,11 +44,11 @@ public class Ticket {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ticket ticket = (Ticket) o;
-        return Objects.equals(row, ticket.row) && Objects.equals(seat, ticket.seat) && Objects.equals(date, ticket.date) && Objects.equals(name, ticket.name);
+        return Objects.equals(row, ticket.row) && Objects.equals(seat, ticket.seat) && Objects.equals(date, ticket.date) && Objects.equals(nameOfPlay, ticket.nameOfPlay);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(row, seat, date, name);
+        return Objects.hash(row, seat, date, nameOfPlay);
     }
 }

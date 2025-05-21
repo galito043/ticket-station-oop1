@@ -7,11 +7,11 @@ public class Purchase {
     private Ticket ticket;
     private String ticketCode;
 
-    public Purchase(String row, String seat, LocalDate date, String name) {
+    public Purchase(int row, int seat, LocalDate date, String name) {
         this.ticket = new Ticket(row,seat,date, name);
         this.ticketCode = CodeGenerator.generateCode(row,seat,date.toString(),name);
     }
-    public Purchase(String row, String seat, LocalDate date, String name, String ticketCode) {
+    public Purchase(int row, int seat, LocalDate date, String name, String ticketCode) {
         this.ticket = new Ticket(row,seat,date, name);
         this.ticketCode = ticketCode;
     }

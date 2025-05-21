@@ -2,6 +2,7 @@ package Commands;
 
 import Exceptions.EmptyUnbookParametersException;
 import Exceptions.InvalidDateException;
+import Exceptions.InvalidRowAndSeatNumbers;
 import Interfaces.Command;
 import Structures.Booking;
 import Structures.SessionInformation;
@@ -28,11 +29,21 @@ public class Unbook implements Command<Void, String> {
                 throw new EmptyUnbookParametersException("Usage : unbook <row> <seat> <date> <name>");
             }
 
-            String row = args[0];
-            String seat = args[1];
+            int row;
+            int seat;
+
+            try{
+                row = Integer.parseInt(args[0]);
+                seat = Integer.parseInt(args[1]);
+
+            }catch (NumberFormatException e){
+                throw new InvalidRowAndSeatNumbers("Invalid row and seat choice");
+            }
+
             String dateString = args[2];
-            String nameOfEvent = args[3];
+            String nameOfEvent = args[3].toUpperCase();
             LocalDate localDate;
+
             try{
                 localDate = LocalDate.parse(dateString);
             }
@@ -57,7 +68,7 @@ public class Unbook implements Command<Void, String> {
             else{
                 System.out.println("No matching booking found  for " + String.join(" ", args));
             }
-        }catch (EmptyUnbookParametersException | InvalidDateException e){
+        }catch (EmptyUnbookParametersException | InvalidDateException | NumberFormatException | InvalidRowAndSeatNumbers | DateTimeParseException e){
             System.out.println(e.getMessage());
         }
 

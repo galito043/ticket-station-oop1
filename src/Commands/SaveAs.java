@@ -7,6 +7,7 @@ import Structures.Event;
 import Structures.Purchase;
 import Structures.SessionInformation;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
@@ -26,6 +27,7 @@ public class SaveAs implements Command <Void, String>{
                 String saveAsPath = args[0];
 
                 FileWriter fw = new FileWriter(saveAsPath);
+                System.out.println(saveAsPath);
 
                 for(Event e: sessionInformation.getEvents()){
                     fw.write(e.toString() + "\n");
@@ -42,7 +44,7 @@ public class SaveAs implements Command <Void, String>{
             else{
                 throw new EmptySaveAsParametersException("Enter name of file you would like to save as to");
             }
-        }catch (EmptySaveAsParametersException e){
+        }catch (EmptySaveAsParametersException | FileNotFoundException e){
             System.out.println(e.getMessage());
             return null;
         }

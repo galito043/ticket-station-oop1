@@ -13,7 +13,7 @@ public class CodeGenerator {
         }
         return sb.toString();
     }
-    public static String generateCode(String row, String seat, String date, String name) {
+    public static String generateCode(int row, int seat, String date, String name) {
         StringBuilder curKey = new StringBuilder();
         curKey.append(row).append("-").append(seat).append(date).append(randomSuffixGenerator(2));
         return curKey.toString();

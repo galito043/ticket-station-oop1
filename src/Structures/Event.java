@@ -8,9 +8,9 @@ import java.util.Objects;
 public class Event {
     private LocalDate localDate;
     private String nameOfEvent;
-    private String hallId;
+    private int hallId;
 
-    public Event(LocalDate localDate, String nameOfEvent, String hallId) {
+    public Event(LocalDate localDate, String nameOfEvent, int hallId) {
         this.localDate = localDate;
         this.nameOfEvent = nameOfEvent;
         this.hallId = hallId;
@@ -32,7 +32,7 @@ public class Event {
         this.nameOfEvent = nameOfEvent;
     }
 
-    public String getHallId() {
+    public int getHallId() {
         return hallId;
     }
 
@@ -49,7 +49,7 @@ public class Event {
         return Objects.hash(localDate, hallId);
     }
 
-    public void setHallId(String hallId) {
+    public void setHallId(int hallId) {
         this.hallId = hallId;
     }
 

@@ -7,6 +7,7 @@ import Interfaces.Command;
 import Structures.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,13 +21,10 @@ private SessionInformation sessionInformation;
         this.sessionInformation = sessionInformation;
     }
 
-    public int getTotalSeatsInHall(String hallId) {
-        String stringValHallId = hallId;
-        Optional<Integer> seats;
-
-
+    public int getTotalSeatsInHall(int hallId) {
+        int stringValHallId = hallId;
         for(Hall hall : sessionInformation.getHalls()){
-            if(hall.getId() == Integer.parseInt(hallId)){
+            if(hall.getId() == hallId){
                 return hall.getNumberOfSeatsPerRow() * hall.getNumberOfRows();
             }
         }
@@ -42,10 +40,10 @@ private SessionInformation sessionInformation;
             String eventName;
             if (args.length == 2) {
                 date = args[0];
-                eventName = args[1];
+                eventName = args[1].toUpperCase();
             }
             else{
-                throw new EmptyFreeSeatsCommandException("Usage: freeseats <date>,<name>\n");
+                throw new EmptyFreeSeatsCommandException("Usage: freeseats <date> <name>\n");
             }
             int totalSeatsInHall = 0;
             int takenSeats = 0;
@@ -77,10 +75,10 @@ private SessionInformation sessionInformation;
                     ticketList.add(p.getTicket());
                 }
             }
-            String curEventHallIdId = curEvent.getHallId();
+            int curEventHallIdId = curEvent.getHallId();
             Hall curHall = null;
             for(Hall h : sessionInformation.getHalls()){
-                if(Integer.parseInt(curEventHallIdId) == h.getId()){
+                if(curEventHallIdId == h.getId()){
                     curHall = h;
                     break;
                 }
@@ -101,12 +99,11 @@ private SessionInformation sessionInformation;
                     int finalI = i;
                     boolean isTaken = false;
                     for(Ticket ticket: ticketList){
-                        if(Integer.parseInt(ticket.getRow()) == finalI && Integer.parseInt(ticket.getSeat()) == finalZ){
+                        if(ticket.getRow() == finalI && ticket.getSeat() == finalZ){
                             isTaken = true;
                             break;
                         }
                     }
-//                    boolean isTaken = ticketList.stream().anyMatch(ticket -> Integer.parseInt(ticket.getRow()) == finalI && Integer.parseInt(ticket.getSeat()) == finalZ);
                     if (isTaken) {
                         System.out.print("X ");
                     } else {
@@ -115,7 +112,7 @@ private SessionInformation sessionInformation;
                 }
                 System.out.println();
             }
-        }catch (EmptyFreeSeatsCommandException | EventNotFoundException | HallNotFoundException e){
+        }catch (EmptyFreeSeatsCommandException | EventNotFoundException | HallNotFoundException | DateTimeParseException e){
             System.out.println(e.getMessage());
         }
 

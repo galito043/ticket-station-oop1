@@ -8,7 +8,7 @@ public class Booking {
     private String note;
     private Ticket ticket;
 
-    public Booking(String row, String seat, LocalDate localDate, String name, String note) {
+    public Booking(int row, int seat, LocalDate localDate, String name, String note) {
         this.ticket = new Ticket(row, seat, localDate, name);
         this.note = note;
     }
@@ -26,7 +26,7 @@ public class Booking {
 
     @Override
     public int hashCode() {
-        return Objects.hash(note, ticket);
+        return Objects.hash(ticket);
     }
 
     @Override

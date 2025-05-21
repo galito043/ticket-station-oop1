@@ -1,3 +1,2 @@
-Event,2025-05-17,Hamlet,1234 taken seats 0
-Event,2025-05-15,Macbeth,1234 taken seats 0
-Event,2025-05-14,Hamlet,1234 taken seats 1
+Event,2025-05-22,ROMEO AND JULIET,1566 taken seats 0
+Event,2025-05-23,HAMLET IN LAPLAND,1234 taken seats 0

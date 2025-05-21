@@ -18,8 +18,9 @@ public enum CommandType {
     CHECK("check"),
     REPORT("report"),
     LIST_ALL_EVENTS("listallevents"),
-    MOST_WATCHED("moststatistics"),
-    LEAST_WATCHED("leastwatched");
+    MOST_WATCHED("mostwatched"),
+    LEAST_WATCHED("leastwatched"),
+    PURCHASES("purchases");
 
 
 

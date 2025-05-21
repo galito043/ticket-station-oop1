@@ -33,6 +33,7 @@ public class CommandLineInterface {
         aliasCommand.put(CommandType.LIST_ALL_EVENTS, new ListAllEvents(sessionInformation));
         aliasCommand.put(CommandType.MOST_WATCHED, new MostWatchedStatistics(sessionInformation));
         aliasCommand.put(CommandType.LEAST_WATCHED, new LeastWatchedStatistics(sessionInformation));
+        aliasCommand.put(CommandType.PURCHASES, new Purchases(sessionInformation));
         while(shouldContinue){
             try{
                 System.out.print("> ");
@@ -60,9 +61,6 @@ public class CommandLineInterface {
                     }
                     commandToExecute.run(argumentsArray);
                     }
-//                else{
-//                    System.out.println("No such command \n");
-//                }
             }
             catch (NoFileOpenException e){
                 System.out.println(e.getMessage());
