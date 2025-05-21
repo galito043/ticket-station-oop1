@@ -2,12 +2,23 @@ package Structures;
 
 import java.time.LocalDate;
 import java.util.Objects;
-
+/**
+ * Represents a booking for a ticket, with a  note.
+ */
 public class Booking {
 
     private String note;
     private Ticket ticket;
 
+    /**
+     * Constructs a Booking with full details.
+     *
+     * @param row       row
+     * @param seat      seat
+     * @param localDate date of event
+     * @param name      the event name
+     * @param note      note
+     */
     public Booking(int row, int seat, LocalDate localDate, String name, String note) {
         this.ticket = new Ticket(row, seat, localDate, name);
         this.note = note;

@@ -12,7 +12,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Implements the "bookings" command: lists bookings filtered by date and event name or just date
+ */
 public class Bookings implements Command<Void,String> {
 private SessionInformation sessionInformation;
 
@@ -20,6 +22,10 @@ private SessionInformation sessionInformation;
         this.sessionInformation = sessionInformation;
     }
 
+    /**
+     * @throws TooManyParametersException if too many params
+     * @throws NoBookingsException if there are no bookings to show
+     */
     @Override
     public Void run(String[] args) throws Exception {
         try {

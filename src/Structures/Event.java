@@ -4,12 +4,19 @@ import Commands.AddEvent;
 
 import java.time.LocalDate;
 import java.util.Objects;
-
+/**
+ * Event that is scheduled for a date in a specified hall
+ */
 public class Event {
     private LocalDate localDate;
     private String nameOfEvent;
     private int hallId;
 
+    /**
+     * @param localDate   date of the event
+     * @param nameOfEvent name of the event
+     * @param hallId      hall id
+     */
     public Event(LocalDate localDate, String nameOfEvent, int hallId) {
         this.localDate = localDate;
         this.nameOfEvent = nameOfEvent;

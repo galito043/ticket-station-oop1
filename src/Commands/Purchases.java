@@ -3,7 +3,9 @@ package Commands;
 import Interfaces.Command;
 import Structures.Purchase;
 import Structures.SessionInformation;
-
+/**
+ * Lists all purchases
+ */
 public class Purchases implements Command<Void, String> {
     private SessionInformation sessionInformation;
 

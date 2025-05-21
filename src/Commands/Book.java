@@ -8,6 +8,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+/**
+ * Handles booking a seat for a specific event and date.
+ */
+
 public class Book implements Command<Void, String> {
 private SessionInformation sessionInformation;
 
@@ -15,6 +19,12 @@ private SessionInformation sessionInformation;
         this.sessionInformation = sessionInformation;
     }
 
+    /**
+     * @throws InvalidRowAndSeatNumbers     if row or seat are not integers
+     * @throws EventDoesNotExistException   if event not found on given date
+     * @throws RowOrSeatOverLimitException  if row or seat exceed hall limits
+     * @throws EmptyBookingParametersException if args length is not 5
+     */
     @Override
     public Void run(String[] args) throws Exception {
         try{

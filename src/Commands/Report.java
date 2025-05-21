@@ -9,7 +9,9 @@ import java.time.format.DateTimeParseException;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+/**
+ * Implements the report command which prints plays tickets bought in a date range from,to in a specified hall or in all halls
+ */
 public class Report implements Command <Void,String> {
     private SessionInformation sessionInformation;
 

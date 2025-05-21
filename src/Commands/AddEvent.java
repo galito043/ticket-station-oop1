@@ -2,19 +2,22 @@
 
     import Exceptions.EmptyEventParametersException;
     import Exceptions.EventAlreadyExistsException;
-    import Exceptions.NoFileOpenException;
+
+    import Exceptions.HallNotFoundException;
     import Interfaces.Command;
     import Structures.Event;
+    import Structures.Hall;
     import Structures.SessionInformation;
 
-    import java.io.BufferedReader;
-    import java.io.FileReader;
+
     import java.io.IOException;
     import java.time.LocalDate;
     import java.time.format.DateTimeParseException;
-    import java.util.Arrays;
-    import java.util.Date;
 
+
+    /**
+     * Implements the add-event command adds a new event to the session
+     */
     public class AddEvent implements Command<Void, String> {
     private SessionInformation sessionInformation;
 
@@ -22,7 +25,8 @@
             this.sessionInformation = sessionInformation;
         }
 
-        public Void run(String[] args) throws IOException, DateTimeParseException {
+        @Override
+        public Void run(String[] args) throws IOException {
 
 
         try{
@@ -31,8 +35,20 @@
             }
             int hallId;
             try{
+
                 hallId = Integer.parseInt(args[1]);
                 String date = args[0];
+
+                boolean hallExists = false;
+                for(Hall h : sessionInformation.getHalls()){
+                    if(hallId == h.getId()){
+                        hallExists = true;
+                        break;
+                    }
+                }
+                if(!hallExists){
+                    throw new HallNotFoundException("Hall with id " + hallId + " does not exist");
+                }
 
                 String nameOfEvent = args[2];
                 Event newEvent = new Event(LocalDate.parse(date), nameOfEvent.toUpperCase(), hallId );
@@ -51,7 +67,7 @@
             }
 
 
-        }catch (EmptyEventParametersException | DateTimeParseException | EventAlreadyExistsException e){
+        }catch (EmptyEventParametersException | DateTimeParseException | EventAlreadyExistsException | HallNotFoundException e){
             System.out.println(e.getMessage());
         }
            return null;

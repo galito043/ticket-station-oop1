@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Loads event, hall, booking and purchase date into sessionInformation
+ */
 public class FileLoader {
     private String generalInfoFile;
     private String hallInfoFile;

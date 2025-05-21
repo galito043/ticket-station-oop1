@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+/**
+ * Saves to a newly specified file
+ */
 public class SaveAs implements Command <Void, String>{
     private SessionInformation sessionInformation;
 

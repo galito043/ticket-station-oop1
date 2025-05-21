@@ -7,6 +7,9 @@ import Structures.SessionInformation;
 
 import java.util.*;
 
+/**
+ * Implements statistics for top 3 most watched plays
+ */
 public class MostWatchedStatistics implements Command<Void,String> {
     SessionInformation sessionInformation;
 

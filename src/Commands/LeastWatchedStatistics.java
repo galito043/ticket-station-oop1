@@ -10,7 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
+/**
+ * Implements "leastwatched" -  lists events with less than 10% occupancy,
+ * and optionally writes them to a file.
+ */
 public class LeastWatchedStatistics implements Command<Void,String> {
 SessionInformation sessionInformation;
 
@@ -44,6 +47,7 @@ SessionInformation sessionInformation;
             if(agreement.equalsIgnoreCase("y")){
                 try{
                     FileWriter fileWriter;
+                    System.out.println("Enter file name or press enter for default save path");
                     String line = scanner.nextLine();
                     if(line.isEmpty()){
                         fileWriter = new FileWriter("src/TestFiles/leastWatchedStatistics.txt");

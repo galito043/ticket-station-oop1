@@ -2,8 +2,16 @@ package Structures;
 
 
 import java.security.SecureRandom;
-
+/**
+ * Utility class for generating ticket codes with row, seat, date, and random suffix.
+ */
 public class CodeGenerator {
+
+    /**
+     * Generates a string with random digits
+     *
+     * @return string of random digits
+     */
     public static String randomSuffixGenerator(int len){
         String numbers = "0123456789";
         StringBuilder sb = new StringBuilder();

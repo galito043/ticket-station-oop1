@@ -9,6 +9,11 @@ import Structures.SessionInformation;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+/**
+ * This is the main class for handling input and dispatching commands
+ * It manages a  map that contains  keywords and commands
+ * it also processes user input
+ */
 public class CommandLineInterface {
     public static boolean shouldContinue = true;
     private SessionInformation sessionInformation = SessionInformation.getInstance();

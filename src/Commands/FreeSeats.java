@@ -14,12 +14,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
+
+
+/**
+ * Implements the "freeseats" command: displays a seating map for a given event and date,
+ * marking free (O) and taken (X) seats.
+ */
 public class FreeSeats implements Command<Void, String> {
 private SessionInformation sessionInformation;
 
     public FreeSeats(SessionInformation sessionInformation) {
         this.sessionInformation = sessionInformation;
     }
+
+    /**
+     * Calculates total seat count for a hall.
+     *
+     * @param hallId the hall identifier
+     * @return rows × seats per row, or 0 if hall not found
+     */
 
     public int getTotalSeatsInHall(int hallId) {
         int stringValHallId = hallId;

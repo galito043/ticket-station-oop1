@@ -6,6 +6,10 @@ import Structures.SessionInformation;
 import java.io.FileReader;
 import java.io.IOException;
 
+
+/**
+ * Implements the "exit" command: exits  the application.
+ */
 public class Exit implements Command {
     private SessionInformation sessionInformation;
 

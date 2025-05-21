@@ -13,7 +13,9 @@ public static FileReader hallInfoReader = null;
 public static String hallsFile = "src/TestFiles/halls.txt";
 private SessionInformation sessionInformation;
 public  static String curFile;
-
+    /**
+     * Implements the "open" command: loads session data from files.
+     */
     public Open(SessionInformation sessionInformation) {
         this.sessionInformation = sessionInformation;
     }

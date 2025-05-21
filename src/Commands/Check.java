@@ -6,7 +6,9 @@ import Exceptions.ShortCodeException;
 import Interfaces.Command;
 import Structures.Purchase;
 import Structures.SessionInformation;
-
+/**
+ * Implements the "check" command: verifies a ticket code against purchases.
+ */
 public class Check implements Command<Void, String> {
 
 private SessionInformation sessionInformation;
@@ -15,6 +17,19 @@ private SessionInformation sessionInformation;
         this.sessionInformation = sessionInformation;
     }
 
+    /**
+     * Checks whether a provided ticket code matches any purchase.
+     * <ul>
+     *   <li>args[0]: ticket code (min. 15 chars)</li>
+     * </ul>
+     * Prints validity and extracts row/seat from code on success.
+     *
+     * @param args array containing exactly one code string
+     * @return always null
+     * @throws MissingCheckParameterException if no code provided
+     * @throws ShortCodeException            if code length &lt; 15
+     * @throws InvalidTicketCodeException    if code not found among purchases
+     */
     @Override
     public Void run(String[] args) throws Exception {
         try{

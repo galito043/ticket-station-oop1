@@ -1,7 +1,9 @@
 package Commands;
 
 import Interfaces.Command;
-
+/**
+ * Implements the "help" command: prints available commands and usage.
+ */
 public class Help implements Command <Void, String>{
     public Void run(String[] args){
         System.out.println(

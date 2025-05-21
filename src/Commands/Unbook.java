@@ -12,6 +12,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Iterator;
 
+
+/**
+ * Unbooks a previously added booking
+ */
 public class Unbook implements Command<Void, String> {
     private SessionInformation sessionInformation;
 

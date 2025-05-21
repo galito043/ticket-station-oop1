@@ -6,7 +6,9 @@ import Structures.SessionInformation;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
+/**
+ * Implements the "close" command: closes the current session and file.
+ */
 public class Close  implements Command <Void, String> {
 private SessionInformation sessionInformation;
 

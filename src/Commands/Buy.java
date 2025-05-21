@@ -6,7 +6,10 @@ import Structures.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-
+/**
+ * Implements the "buy" command: attempts to purchase a ticket,
+ * removing any existing booking first.
+ */
 public class Buy implements Command<Void,String> {
     private SessionInformation sessionInformation;
     private Book book;
@@ -14,7 +17,15 @@ public class Buy implements Command<Void,String> {
         this.sessionInformation = sessionInformation;
         book = new Book(sessionInformation);
     }
-
+    /**
+     * @param args array of four strings as above
+     * @return always null
+     * @throws EmptyPurchaseParametersException if wrong number of args or any is empty
+     * @throws InvalidRowAndSeatNumbers       if row/seat parsing fails
+     * @throws EventNotFoundException          if no matching event
+     * @throws RowOrSeatOverLimitException     if seat outside hall bounds
+     * @throws TicketAlreadyBoughtException    if purchase already exists
+     */
     @Override
     public Void run(String[] args) throws Exception {
         try{
@@ -32,18 +43,20 @@ public class Buy implements Command<Void,String> {
             }
 
 
-            String date = args[2];
+            String dateString = args[2];
+            LocalDate date = LocalDate.parse(dateString);
             String name = args[3].toUpperCase();
-            Event curEvent = eventExists(name);
+            Event curEvent = eventExists(name, date);
+
             if(curEvent == null){
-                throw new EventNotFoundException("Event with name " + name + " not found");
+                throw new EventNotFoundException("Event with name " + name + " not found on this date");
             }
 
             if(book.isRowSeatOverLimit(row, seat, curEvent.getHallId())){
                 throw new RowOrSeatOverLimitException("The row or seat you entered does not exist in this hall");
             }
 
-            Purchase newPurchase = new Purchase(row, seat, LocalDate.parse(date), name);
+            Purchase newPurchase = new Purchase(row, seat, date, name);
             if(!sessionInformation.getPurchases().contains(newPurchase)){
                 sessionInformation.getBookings().remove(new Booking(newPurchase.getTicket()));
 
@@ -61,9 +74,9 @@ public class Buy implements Command<Void,String> {
 
         return null;
     }
-    public Event eventExists(String eventName){
+    public Event eventExists(String eventName, LocalDate date){
         for(Event e : sessionInformation.getEvents()){
-             if(e.getNameOfEvent().equalsIgnoreCase(eventName)){
+             if(e.getNameOfEvent().equalsIgnoreCase(eventName) && e.getLocalDate().equals(date)){
                 return e;
              }
         }

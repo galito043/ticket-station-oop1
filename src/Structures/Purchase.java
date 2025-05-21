@@ -2,11 +2,20 @@ package Structures;
 
 import java.time.LocalDate;
 import java.util.Objects;
-
+/**
+ * Represents a ticket purchase with a unique code
+ */
 public class Purchase {
     private Ticket ticket;
     private String ticketCode;
-
+    /**
+     * Creates a Purchase and generates a code
+     *
+     * @param row       seat row
+     * @param seat      seat number
+     * @param date      event date
+     * @param name      event name
+     */
     public Purchase(int row, int seat, LocalDate date, String name) {
         this.ticket = new Ticket(row,seat,date, name);
         this.ticketCode = CodeGenerator.generateCode(row,seat,date.toString(),name);

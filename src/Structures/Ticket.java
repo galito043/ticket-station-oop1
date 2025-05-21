@@ -3,7 +3,10 @@ package Structures;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
-
+/**
+ * Ticket base class from which is used in purchases and bookings, contains row seat, date of event and the name of the event
+ *
+ */
 public class Ticket {
     private int row;
     private int seat;

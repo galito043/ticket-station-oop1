@@ -2,7 +2,10 @@ package Structures;
 
 import java.time.LocalDate;
 import java.util.*;
-
+/**
+ * Singleton class that stores the current session data
+ * including loaded events, bookings, purchases, and halls
+ */
 public class SessionInformation {
     public  List<String> fileContents = new ArrayList<>();
     public  HashSet<Booking> bookings = new HashSet<>();
@@ -12,6 +15,9 @@ public class SessionInformation {
     };
 
     private static SessionInformation sessionInformation;
+    /**
+     * @return the singleton instance of SessionInformation
+     */
     public static SessionInformation getInstance(){
         if(sessionInformation == null){
             sessionInformation = new SessionInformation();

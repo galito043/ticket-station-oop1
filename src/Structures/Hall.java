@@ -5,12 +5,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
-
+/**
+ * A hall with an id, rows and seats
+ */
 public class Hall {
     private int id;
     private int numberOfRows;
     private int numberOfSeatsPerRow;
-
+    /**
+     * @param id                   hall ide
+     * @param numberOfRows         total rows
+     * @param numberOfSeatsPerRow  seats per row
+     */
     public Hall(int id, int numberOfRows, int numberOfSeatsPerRow) {
         this.id = id;
         this.numberOfRows = numberOfRows;

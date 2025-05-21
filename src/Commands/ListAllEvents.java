@@ -3,7 +3,9 @@ package Commands;
 import Interfaces.Command;
 import Structures.Event;
 import Structures.SessionInformation;
-
+/**
+ * Lists all events
+ */
 public class ListAllEvents implements Command<Void,String> {
     private SessionInformation sessionInformation;
 

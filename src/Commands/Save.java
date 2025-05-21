@@ -13,7 +13,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+/**
+ * Saves to previously specified file
+ */
 public class Save implements Command <Void, String> {
     private SessionInformation sessionInformation;
 
